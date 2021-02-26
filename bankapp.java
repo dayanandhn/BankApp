@@ -16,10 +16,12 @@ class bankapp {
         BankAccount c1 = new BankAccount(Name, phone, dob, i);
         
         System.out.println("A : Check Your Balance");
-		System.out.println("B : Deposit");
+		System.out.println("B : Add Amount");
 		System.out.println("C : Withdraw");
 		System.out.println("D : Previous Transaction");
-		System.out.println("E : Exit The System");
+        System.out.println("E : Deposit");
+		System.out.println("F : Print Passbook");
+        System.out.println("G : Exit");
 		
 		do {
 			System.out.println("=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=");
@@ -39,10 +41,10 @@ class bankapp {
                     
                 case 'B':
                     System.out.println("-------------------------------------------------------");
-                    System.out.println("Enter an amount to deposit ");
+                    System.out.println("Enter an amount to Add ");
                     System.out.println("-------------------------------------------------------");
                     float amount; amount =  scanner.nextFloat();
-                    c1.deposit(amount);
+                    c1.addAmount(amount);
                     break;
                     
                 case 'C':
@@ -59,8 +61,27 @@ class bankapp {
                     System.out.println("-------------------------------------------------------");
                     System.out.println("\n");
                     break;
-                    
-                case 'E' :
+                case 'E':
+                    System.out.println("-------------------------------------------------------");
+                    Scanner s = new Scanner(System.in);
+                    System.out.println("Input Amount, deposit type(1.FD 2.RD), Months");
+                    int a = s.nextInt();
+                    int t = s.nextInt();
+                    int m = s.nextInt();
+                    deposit d = new deposit(a, t, m);
+                    d.calculateInterest();
+                    c1.withdraw(a);
+                    c1.addAmount(d.finalAmount);
+                    System.out.println("-------------------------------------------------------");
+                    System.out.println("\n");
+                    break;
+                case 'F':
+                    System.out.println("-------------------------------------------------------");
+                    c1.printPassbook();
+                    System.out.println("-------------------------------------------------------");
+                    System.out.println("\n");
+                    break;
+                case 'G' :
                     System.out.println("=========================================================================================================");
                     break;
 
@@ -68,7 +89,7 @@ class bankapp {
                     System.out.println("Invalid Option!! Please Enter Correct Opton...");
                     break;
 			}			
-		}while(option != 'E');
+		}while(option != 'G');
 			System.out.println("Thank You for Using our Services.....!!");
 	}
 }

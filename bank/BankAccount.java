@@ -28,7 +28,8 @@ public class BankAccount extends details
     public int cId ;
     public float balance;
     static int lowBalance = 100;
-    public float prevTran;
+    public float prevTran[] = new float[15];
+    int tn = 0;
     public BankAccount(String Name, String phone, String dob, int i)
     {
         super(Name, phone, dob);
@@ -39,14 +40,15 @@ public class BankAccount extends details
     {
         return balance;
     }
-    public void deposit(float amount)
+    public void addAmount(double amount)
     {
         balance += amount;
+        prevTran[tn++] = (float)amount;
     }
 
 	public void withdraw(float amount)
     {
-        if(amount <  lowBalance)
+        if(amount >  balance || (balance-amount)<lowBalance)
         {
             try
             {
@@ -60,12 +62,19 @@ public class BankAccount extends details
         else  
         {
             balance = balance - amount;
-            prevTran = -amount;
+            prevTran[tn++] = -amount;
         }
     }
     public void display()
     {
         System.out.println("\nCustomerID: "+cId);
         super.display();
+    }
+    public void printPassbook()
+    {
+        for(int i=0;i<tn;i++)
+        {
+            System.out.println("Transaction "+i+" = "+prevTran[i]);
+        }
     }
 }
